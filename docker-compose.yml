@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+    books-web:
+        container_name: books
+        restart: always
+        environment: 
+            CHOKIDAR_USEPOLLING: "true"
+        build: 
+            context: .
+            dockerfile: Dockerfile
+        ports: 
+            - "8080:8080"
+        depends_on: 
+            - mysql
+        volumes: 
+            - ./:/src/usr/books
+    mysql:
+        image: mysql:5.7
+        container_name: mysql
+        environment:
+            MYSQL_USER: admin
+            MYSQL_PASSWORD: 123456
+            MYSQL_ROOT_PASSWORD: 123456
+            MYSQL_DATABASE: books
+            MYSQL_ROOT_HOST: "%" 
+        networks:
+            - default
+        volumes:
+            - ./books.sql:/docker-entrypoint-initdb.d/books.sql
+        ports:
+            - 3306:3306
+          
+    phpmyadmin :
+        image: phpmyadmin/phpmyadmin:latest
+        container_name: phpmyadmin
+        links: 
+            - mysql
+        environment: 
+            PMA_HOST: mysql
+            PMA_PORT: 3306
+            PMA_ARBITRARY: 1
+        restart: always
+        ports: 
+            - "8000:80"

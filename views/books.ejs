@@ -1,0 +1,15 @@
+<%- include ('partials/header'); -%>
+<div class="container">
+    <% if (typeof books !== 'undefined' && books.length > 0) { %>
+        <% books.forEach(book => { %>
+        <div class="card p-5 my-1">
+            <h4><%= book.title %> </h4>
+            <p><%= book.author %> </p>
+            <p><%= book.release_date %> </p>
+            <p><%= book.page_count %> </p>
+        </div>
+        <% }) %>
+    <% } %>
+</div> 
+    
+<%- include ('partials/footer'); -%>  

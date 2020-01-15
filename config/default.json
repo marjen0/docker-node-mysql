@@ -1,0 +1,9 @@
+{
+    "db": {
+        "DB_USER": "admin",
+        "DB_PASS":"123456",
+        "DB_HOST":"mysql",
+        "DB_NAME":"books",
+        "DB_PORT":"3306"
+    }
+}
